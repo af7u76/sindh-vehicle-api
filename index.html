@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sindh Vehicle Search</title>
+</head>
+<body>
+  <h2>Vehicle Verification</h2>
+  <input type="text" id="reg_no" placeholder="Registration Number">
+  <input type="text" id="cnic" placeholder="CNIC Number">
+  <button onclick="searchVehicle()">Search</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function searchVehicle(){
+      const reg_no = document.getElementById("reg_no").value;
+      const cnic = document.getElementById("cnic").value;
+
+      const res = await fetch('https://YOUR_RENDER_URL/vehicle', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({reg_no, cnic})
+      });
+      const data = await res.json();
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
